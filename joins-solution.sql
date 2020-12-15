@@ -20,8 +20,17 @@ JOIN warehouse AS w ON w.id = wp.warehouse_id
 WHERE p.description = 'diet pepsi' AND on_hand > 0;
 
 -- 5. Get the number of orders for each customer. NOTE: It is OK if those without orders are not included in results.
+SELECT c.first_name, c.last_name, count(*) FROM customers AS c
+JOIN addresses as a ON c.id = a.customer_id
+JOIN orders as o ON o.address_id = a.id
+GROUP BY c.first_name, c.last_name;
+
 -- 6. How many customers do we have?
+SELECT count(id) from customers;
+
+
 -- 7. How many products do we carry?
+
 -- 8. What is the total available on-hand quantity of diet pepsi?
 
 -- 9. How much was the total cost for each order?
