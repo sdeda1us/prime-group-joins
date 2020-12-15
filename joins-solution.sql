@@ -23,7 +23,8 @@ WHERE p.description = 'diet pepsi' AND on_hand > 0;
 SELECT c.first_name, c.last_name, count(*) FROM customers AS c
 JOIN addresses as a ON c.id = a.customer_id
 JOIN orders as o ON o.address_id = a.id
-GROUP BY c.first_name, c.last_name;
+GROUP BY c.first_name, c.last_name
+ORDER BY count(*) DESC;
 
 -- 6. How many customers do we have?
 SELECT count(id) from customers;
@@ -39,5 +40,19 @@ WHERE p.description = 'diet pepsi'
 GROUP BY p.description;
 
 -- 9. How much was the total cost for each order?
+SELECT o.id, SUM(p.unit_price) FROM line_items AS l
+JOIN orders AS o ON o.id = l.order_id
+JOIN products AS p ON p.id = l.product_id
+GROUP BY o.id
+ORDER BY SUM(p.unit_price) DESC;
+
 -- 10. How much has each customer spent in total?
+SELECT c.first_name, c.last_name, SUM(p.unit_price) FROM line_items as l
+JOIN orders AS o ON o.id = l.order_id
+JOIN products AS p ON p.id = l.product_id
+JOIN addresses AS a ON a.id = o.address_id
+JOIN customers AS c ON c.id = a.customer_id
+GROUP BY c.last_name, c.first_name
+ORDER BY SUM(p.unit_price) DESC;
+
 -- 11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table. It should say 0, not NULL (research coalesce).
