@@ -30,8 +30,13 @@ SELECT count(id) from customers;
 
 
 -- 7. How many products do we carry?
+SELECT count(id) from products;
 
 -- 8. What is the total available on-hand quantity of diet pepsi?
+SELECT p.description, SUM(wp.on_hand) FROM warehouse_product AS wp
+JOIN products AS p ON p.id = wp.product_id
+WHERE p.description = 'diet pepsi'
+GROUP BY p.description;
 
 -- 9. How much was the total cost for each order?
 -- 10. How much has each customer spent in total?
