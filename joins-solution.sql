@@ -1,4 +1,7 @@
 -- 1. Get all customers and their addresses.
+SELECT first_name, last_name, street, city, state, zip FROM customers
+JOIN addresses ON addresses.customer_id = customers.id;
+
 -- 2. Get all orders and their line items (orders, quantity and product).
 -- 3. Which warehouses have cheetos?
 -- 4. Which warehouses have diet pepsi?
